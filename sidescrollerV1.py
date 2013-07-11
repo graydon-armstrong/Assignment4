@@ -19,10 +19,16 @@ class Player(pygame.sprite.Sprite):
         self.image.fill((0,0,255))
         self.image.convert()
         self.rect = self.image.get_rect()
+        self.rect.centery = screen.get_height()/2
+        self.rect.centerx = 100
+        self.dy = 5
         
     def update(self):
         mousex, mousey = pygame.mouse.get_pos()
-        self.rect.center = (mousex, mousey)
+        if self.rect.centery < mousey-5:
+            self.rect.centery += self.dy
+        elif self.rect.centery > mousey+5:
+            self.rect.centery -= self.dy
         
 class Enemy(pygame.sprite.Sprite):
     def __init__(self):
@@ -51,7 +57,7 @@ def game():
     screen.blit(background, (0,0))
     
     player = Player()
-    enemy = Enemy()
+    enemy = {Enemy(),Enemy(),Enemy()}
     
     freindSprites = pygame.sprite.Group(player)
     enemySprites = pygame.sprite.Group(enemy)
@@ -60,7 +66,7 @@ def game():
     keepGoing = True
     while keepGoing:
         clock.tick(30)
-        pygame.mouse.set_visible(False)
+        #pygame.mouse.set_visible(False)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 keepGoing = False
