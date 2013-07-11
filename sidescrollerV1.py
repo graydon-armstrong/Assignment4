@@ -67,6 +67,22 @@ class Reward(pygame.sprite.Sprite):
     def reset(self):
          self.rect.centerx = 640
          self.rect.centery = random.randint(0,480)
+         
+class Road(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.image.load("road.gif")
+        self.rect = self.image.get_rect()
+        self.dx = -5
+        self.reset()
+        
+    def update(self):
+        self.rect.left += self.dx
+        if self.rect.left <= -1280:
+            self.reset() 
+    
+    def reset(self):
+        self.rect.left = 0
 
 def game():
     pygame.display.set_caption("Game")
@@ -76,10 +92,11 @@ def game():
     screen.blit(background, (0,0))
     
     player = Player()
+    road = Road()
     enemy = {Enemy(),Enemy(),Enemy()}
     reward = {Reward(),Reward(),Reward()}
     
-    freindSprites = pygame.sprite.Group(player)
+    freindSprites = pygame.sprite.Group(player,road)
     rewardSprites = pygame.sprite.Group(reward)
     enemySprites = pygame.sprite.Group(enemy)
     
