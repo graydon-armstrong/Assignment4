@@ -53,7 +53,8 @@ def game():
     player = Player()
     enemy = Enemy()
     
-    freindSprites = pygame.sprite.Group(player, enemy)
+    freindSprites = pygame.sprite.Group(player)
+    enemySprites = pygame.sprite.Group(enemy)
     
     clock = pygame.time.Clock()
     keepGoing = True
@@ -64,10 +65,18 @@ def game():
             if event.type == pygame.QUIT:
                 keepGoing = False
                 
+        #check collisions       
+        hitEnemies = pygame.sprite.spritecollide(player, enemySprites, False)
+        if hitEnemies:
+            for theEnemy in hitEnemies:
+                theEnemy.reset()
+                
         freindSprites.update()
+        enemySprites.update()
                 
         screen.blit(background, (0,0))
-        freindSprites.draw(screen)        
+        freindSprites.draw(screen)     
+        enemySprites.draw(screen)   
         
         pygame.display.flip()
     
