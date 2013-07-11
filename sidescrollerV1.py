@@ -128,11 +128,16 @@ def game():
         hitEnemies = pygame.sprite.spritecollide(player, enemySprites, False)
         if hitEnemies:
             for theEnemy in hitEnemies:
-                theEnemy.reset()
+                if scoreboard.lives > 1:
+                    scoreboard.lives -= 1
+                    theEnemy.reset()
+                else:
+                    keepGoing = False
                 
         hitRewards = pygame.sprite.spritecollide(player, rewardSprites, False)
         if hitRewards:
             for theReward in hitRewards:
+                scoreboard.score += 50
                 theReward.reset()
                 
         freindSprites.clear(screen, background)
