@@ -25,9 +25,9 @@ class Player(pygame.sprite.Sprite):
         
     def update(self):
         mousex, mousey = pygame.mouse.get_pos()
-        if self.rect.centery < mousey-5:
+        if self.rect.centery < mousey-5 and self.rect.bottom < 410:
             self.rect.centery += self.dy
-        elif self.rect.centery > mousey+5:
+        elif self.rect.centery > mousey+5 and self.rect.top > 70:
             self.rect.centery -= self.dy
         
 class Enemy(pygame.sprite.Sprite):
