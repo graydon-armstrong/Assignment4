@@ -16,7 +16,7 @@ class Player(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.Surface((25,25))
-        self.image.fill((0,0,255))
+        self.image.fill((0,255,255))
         self.image.convert()
         self.rect = self.image.get_rect()
         self.rect.centery = screen.get_height()/2
@@ -47,7 +47,7 @@ class Enemy(pygame.sprite.Sprite):
             
     def reset(self):
          self.rect.centerx = 640
-         self.rect.centery = random.randint(0,480)
+         self.rect.centery = random.randint(70,410)
          
 class Reward(pygame.sprite.Sprite):
     def __init__(self):
@@ -66,7 +66,7 @@ class Reward(pygame.sprite.Sprite):
             
     def reset(self):
          self.rect.centerx = 640
-         self.rect.centery = random.randint(0,480)
+         self.rect.centery = random.randint(70,410)
          
 class Road(pygame.sprite.Sprite):
     def __init__(self):
@@ -109,7 +109,8 @@ def game():
     reward = {Reward(),Reward(),Reward()}
     scoreboard = Scoreboard()
     
-    freindSprites = pygame.sprite.Group(player, road)
+    freindSprites = pygame.sprite.Group(road)
+    playerSprites = pygame.sprite.Group(player)
     rewardSprites = pygame.sprite.Group(reward)
     enemySprites = pygame.sprite.Group(enemy)
     scoreDisplay = pygame.sprite.Group(scoreboard)
@@ -135,16 +136,19 @@ def game():
                 theReward.reset()
                 
         freindSprites.clear(screen, background)
+        playerSprites.clear(screen, background)
         rewardSprites.clear(screen, background)
         enemySprites.clear(screen, background)
         scoreDisplay.clear(screen, background)
         
         freindSprites.update()
+        playerSprites.update()
         rewardSprites.update()
         enemySprites.update()
         scoreDisplay.update()
         
-        freindSprites.draw(screen)  
+        freindSprites.draw(screen) 
+        playerSprites.draw(screen)
         rewardSprites.draw(screen)   
         enemySprites.draw(screen)   
         scoreDisplay.draw(screen) 
