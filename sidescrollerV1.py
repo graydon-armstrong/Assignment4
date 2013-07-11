@@ -16,13 +16,32 @@ class Player(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.Surface((25,25))
-        self.image.fill((255,0,0))
+        self.image.fill((0,0,255))
         self.image.convert()
         self.rect = self.image.get_rect()
         
     def update(self):
         mousex, mousey = pygame.mouse.get_pos()
         self.rect.center = (mousex, mousey)
+        
+class Enemy(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.Surface((25,25))
+        self.image.fill((255,0,0))
+        self.image.convert()
+        self.rect = self.image.get_rect()
+        self.dx = -5
+        self.reset()
+        
+    def update(self):
+        self.rect.centerx += self.dx
+        if self.rect.centerx < 0:
+            self.reset()
+            
+    def reset(self):
+         self.rect.centerx = 640
+         self.rect.centery = random.randint(0,480)
 
 def game():
     pygame.display.set_caption("Game")
@@ -32,8 +51,9 @@ def game():
     screen.blit(background, (0,0))
     
     player = Player()
+    enemy = Enemy()
     
-    freindSprites = pygame.sprite.Group(player)
+    freindSprites = pygame.sprite.Group(player, enemy)
     
     clock = pygame.time.Clock()
     keepGoing = True
