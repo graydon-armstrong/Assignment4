@@ -106,6 +106,11 @@ def instruction():
         pygame.display.flip()     
     
 def scoreScreen():
+    
+    background = pygame.Surface(screen.get_size())
+    background.fill((0,0,0))
+    screen.blit(background, (0,0))
+    
     menuFont = pygame.font.SysFont(None, 50)
     label = menuFont.render("You Lose", 1, (255,0,0))
     
@@ -117,6 +122,7 @@ def scoreScreen():
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 keepGoing = False
+                
         
         screen.blit(label,(screen.get_width()/2-label.get_width()/2,screen.get_height()/2-label.get_height()/2))   
         
