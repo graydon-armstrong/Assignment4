@@ -87,8 +87,26 @@ def game():
         enemySprites.draw(screen)   
         
         pygame.display.flip()
+        
+def instruction():
+    menuFont = pygame.font.SysFont(None, 50)
+    label = menuFont.render("Click to Start Game", 1, (255,0,0))
     
-def main():
+    keepGoing = True
+    
+    clock = pygame.time.Clock()
+    while keepGoing:
+        clock.tick(30)
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                keepGoing = False
+        
+        screen.blit(label,(screen.get_width()/2-label.get_width()/2,screen.get_height()/2-label.get_height()/2))   
+        
+        pygame.display.flip()     
+    
+def main():   
+    instruction() 
     game()
     
 if __name__ == "__main__":
