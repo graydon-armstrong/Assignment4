@@ -37,6 +37,25 @@ class Enemy(pygame.sprite.Sprite):
         self.image.fill((255,0,0))
         self.image.convert()
         self.rect = self.image.get_rect()
+        self.dx = -12
+        self.reset()
+        
+    def update(self):
+        self.rect.centerx += self.dx
+        if self.rect.centerx < 0:
+            self.reset()
+            
+    def reset(self):
+         self.rect.centerx = 640
+         self.rect.centery = random.randint(0,480)
+         
+class Reward(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.Surface((25,25))
+        self.image.fill((0,255,0))
+        self.image.convert()
+        self.rect = self.image.get_rect()
         self.dx = -5
         self.reset()
         
@@ -58,8 +77,10 @@ def game():
     
     player = Player()
     enemy = {Enemy(),Enemy(),Enemy()}
+    reward = {Reward(),Reward(),Reward()}
     
     freindSprites = pygame.sprite.Group(player)
+    rewardSprites = pygame.sprite.Group(reward)
     enemySprites = pygame.sprite.Group(enemy)
     
     clock = pygame.time.Clock()
@@ -77,13 +98,21 @@ def game():
             for theEnemy in hitEnemies:
                 theEnemy.reset()
                 
+        hitRewards = pygame.sprite.spritecollide(player, rewardSprites, False)
+        if hitRewards:
+            for theReward in hitRewards:
+                theReward.reset()
+                
         freindSprites.clear(screen, background)
+        rewardSprites.clear(screen, background)
         enemySprites.clear(screen, background)
         
         freindSprites.update()
+        rewardSprites.update()
         enemySprites.update()
         
-        freindSprites.draw(screen)     
+        freindSprites.draw(screen)  
+        rewardSprites.draw(screen)   
         enemySprites.draw(screen)   
         
         pygame.display.flip()
