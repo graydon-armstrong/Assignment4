@@ -71,10 +71,12 @@ def game():
             for theEnemy in hitEnemies:
                 theEnemy.reset()
                 
+        freindSprites.clear(screen, background)
+        enemySprites.clear(screen, background)
+        
         freindSprites.update()
         enemySprites.update()
-                
-        screen.blit(background, (0,0))
+        
         freindSprites.draw(screen)     
         enemySprites.draw(screen)   
         
