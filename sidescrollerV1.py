@@ -159,6 +159,7 @@ def game():
         scoreDisplay.draw(screen) 
         
         pygame.display.flip()
+    return scoreboard.score
         
 def instruction():
     menuFont = pygame.font.SysFont(None, 50)
@@ -177,14 +178,14 @@ def instruction():
         
         pygame.display.flip()     
     
-def scoreScreen():
+def scoreScreen(score):
     
     background = pygame.Surface(screen.get_size())
     background.fill((0,0,0))
     screen.blit(background, (0,0))
     
     menuFont = pygame.font.SysFont(None, 50)
-    label = menuFont.render("You Lose", 1, (255,0,0))
+    label = menuFont.render("You Lose, Score: " + str(score), 1, (255,0,0))
     
     keepGoing = True
     
@@ -201,9 +202,10 @@ def scoreScreen():
         pygame.display.flip()   
 
 def main():   
+    score  = 0
     instruction() 
-    game()
-    scoreScreen()
+    score = game()
+    scoreScreen(score)
     
 if __name__ == "__main__":
     main()
