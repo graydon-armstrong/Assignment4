@@ -83,6 +83,18 @@ class Road(pygame.sprite.Sprite):
     
     def reset(self):
         self.rect.left = 0
+        
+class Scoreboard(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.lives = 5
+        self.score = 0
+        self.font = pygame.font.SysFont("None", 50)
+        
+    def update(self):
+        self.text = "Cars: %d, Score: %d" % (self.lives, self.score)
+        self.image = self.font.render(self.text, 1, (255, 255, 0))
+        self.rect = self.image.get_rect()
 
 def game():
     pygame.display.set_caption("Game")
@@ -95,10 +107,12 @@ def game():
     road = Road()
     enemy = {Enemy(),Enemy(),Enemy()}
     reward = {Reward(),Reward(),Reward()}
+    scoreboard = Scoreboard()
     
-    freindSprites = pygame.sprite.Group(player,road)
+    freindSprites = pygame.sprite.Group(player, road)
     rewardSprites = pygame.sprite.Group(reward)
     enemySprites = pygame.sprite.Group(enemy)
+    scoreDisplay = pygame.sprite.Group(scoreboard)
     
     clock = pygame.time.Clock()
     keepGoing = True
@@ -123,14 +137,17 @@ def game():
         freindSprites.clear(screen, background)
         rewardSprites.clear(screen, background)
         enemySprites.clear(screen, background)
+        scoreDisplay.clear(screen, background)
         
         freindSprites.update()
         rewardSprites.update()
         enemySprites.update()
+        scoreDisplay.update()
         
         freindSprites.draw(screen)  
         rewardSprites.draw(screen)   
         enemySprites.draw(screen)   
+        scoreDisplay.draw(screen) 
         
         pygame.display.flip()
         
