@@ -123,6 +123,10 @@ def game():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 keepGoing = False
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    keepGoing = False
+                
                 
         #check collisions       
         hitEnemies = pygame.sprite.spritecollide(player, enemySprites, False)
@@ -171,12 +175,22 @@ def instruction():
     while keepGoing:
         clock.tick(30)
         for event in pygame.event.get():
-            if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.type == pygame.QUIT:
                 keepGoing = False
+                donePlaying = True
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                keepGoing = False
+                donePlaying = False
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    keepGoing = False
+                    donePlaying = True
         
         screen.blit(label,(screen.get_width()/2-label.get_width()/2,screen.get_height()/2-label.get_height()/2))   
         
-        pygame.display.flip()     
+        pygame.display.flip()  
+        
+    return donePlaying   
     
 def scoreScreen(score):
     
@@ -193,19 +207,30 @@ def scoreScreen(score):
     while keepGoing:
         clock.tick(30)
         for event in pygame.event.get():
-            if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.type == pygame.QUIT:
                 keepGoing = False
+                donePlaying = True
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                keepGoing = False
+                donePlaying = False
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    keepGoing = False
+                    donePlaying = True
                 
         
         screen.blit(label,(screen.get_width()/2-label.get_width()/2,screen.get_height()/2-label.get_height()/2))   
         
         pygame.display.flip()   
+        
+    return donePlaying
 
 def main():   
     score  = 0
-    instruction() 
-    score = game()
-    scoreScreen(score)
+    donePlaying = instruction()
+    while not donePlaying: 
+        score = game()
+        donePlaying = scoreScreen(score)
     
 if __name__ == "__main__":
     main()
