@@ -15,9 +15,10 @@ screen = pygame.display.set_mode((640,480))
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface((25,25))
-        self.image.fill((0,255,255))
+        self.image = pygame.image.load("player.png")
         self.image.convert()
+        transcolor = self.image.get_at((1,1))
+        self.image.set_colorkey(transcolor)
         self.rect = self.image.get_rect()
         self.rect.centery = screen.get_height()/2
         self.rect.centerx = 100
@@ -33,11 +34,12 @@ class Player(pygame.sprite.Sprite):
 class Enemy(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface((25,25))
-        self.image.fill((255,0,0))
+        self.image = pygame.image.load("enemy.png")
         self.image.convert()
+        transcolor = self.image.get_at((1,1))
+        self.image.set_colorkey(transcolor)
         self.rect = self.image.get_rect()
-        self.dx = -12
+        self.dx = -(random.randint(10,15))
         self.reset()
         
     def update(self):
@@ -47,7 +49,7 @@ class Enemy(pygame.sprite.Sprite):
             
     def reset(self):
          self.rect.centerx = 640
-         self.rect.centery = random.randint(70,410)
+         self.rect.centery = random.randrange(70,410,36)
          
 class Reward(pygame.sprite.Sprite):
     def __init__(self):
@@ -73,7 +75,7 @@ class Road(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load("road.gif")
         self.rect = self.image.get_rect()
-        self.dx = -5
+        self.dx = -15
         self.reset()
         
     def update(self):
