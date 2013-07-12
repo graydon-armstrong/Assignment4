@@ -54,9 +54,10 @@ class Enemy(pygame.sprite.Sprite):
 class Reward(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface((25,25))
-        self.image.fill((0,255,0))
+        self.image = pygame.image.load("money.png")
         self.image.convert()
+        transcolor = self.image.get_at((1,1))
+        self.image.set_colorkey(transcolor)
         self.rect = self.image.get_rect()
         self.dx = -5
         self.reset()
@@ -68,7 +69,7 @@ class Reward(pygame.sprite.Sprite):
             
     def reset(self):
          self.rect.centerx = 640
-         self.rect.centery = random.randint(70,410)
+         self.rect.centery = random.randrange(70,410,36)
          
 class Road(pygame.sprite.Sprite):
     def __init__(self):
@@ -121,7 +122,6 @@ def game():
     keepGoing = True
     while keepGoing:
         clock.tick(30)
-        #pygame.mouse.set_visible(False)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 keepGoing = False
