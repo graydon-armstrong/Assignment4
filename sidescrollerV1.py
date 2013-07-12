@@ -71,7 +71,7 @@ class Reward(pygame.sprite.Sprite):
 class Road(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load("road.gif")
+        self.image = pygame.image.load("road.png")
         self.rect = self.image.get_rect()
         self.dx = -5
         self.reset()

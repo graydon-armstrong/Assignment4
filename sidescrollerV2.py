@@ -73,7 +73,7 @@ class Reward(pygame.sprite.Sprite):
 class Road(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load("road.gif")
+        self.image = pygame.image.load("road.png")
         self.rect = self.image.get_rect()
         self.dx = -15
         self.reset()
@@ -95,7 +95,7 @@ class Scoreboard(pygame.sprite.Sprite):
         
     def update(self):
         self.text = "Cars: %d, Score: %d" % (self.lives, self.score)
-        self.image = self.font.render(self.text, 1, (255, 255, 0))
+        self.image = self.font.render(self.text, 1, (255, 0, 0))
         self.rect = self.image.get_rect()
 
 def game():
