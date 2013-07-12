@@ -169,7 +169,19 @@ def game():
         
 def instruction():
     menuFont = pygame.font.SysFont(None, 50)
-    label = menuFont.render("Click to Start Game", 1, (255,0,0))
+    
+    insLabels = []
+    instructions = (
+    "Race Car Driver",
+    "Instructions:  You are a race car,",
+    "driver collecting money",
+    "And trying to avoid other cars",
+    "Click to Start Game"
+    )
+    
+    for line in instructions:
+        tempLabel = menuFont.render(line, 1, (255, 0, 0))
+        insLabels.append(tempLabel)
     
     keepGoing = True
     
@@ -188,8 +200,9 @@ def instruction():
                     keepGoing = False
                     donePlaying = True
         
-        screen.blit(label,(screen.get_width()/2-label.get_width()/2,screen.get_height()/2-label.get_height()/2))   
-        
+        for i in range(len(insLabels)):
+            screen.blit(insLabels[i], (50, 150 + 30*i))
+            
         pygame.display.flip()  
         
     return donePlaying   
@@ -202,6 +215,7 @@ def scoreScreen(score):
     
     menuFont = pygame.font.SysFont(None, 50)
     label = menuFont.render("You Lose, Score: " + str(score), 1, (255,0,0))
+    label2 = menuFont.render("Click to Play Again", 1 ,(255,0,0))
     
     keepGoing = True
     
@@ -221,7 +235,8 @@ def scoreScreen(score):
                     donePlaying = True
                 
         
-        screen.blit(label,(screen.get_width()/2-label.get_width()/2,screen.get_height()/2-label.get_height()/2))   
+        screen.blit(label,(screen.get_width()/2-label.get_width()/2,screen.get_height()/2-label.get_height()/2))
+        screen.blit(label2,(screen.get_width()/2-label.get_width()/2,screen.get_height()/2-label.get_height()/2-30))   
         
         pygame.display.flip()   
         
